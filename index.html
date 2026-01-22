@@ -1,0 +1,2310 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Design Terminology | 웹 디자인 용어 사전</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* 
+         * DESIGN TOKENS 
+         * Demonstrating the concept of "Design Tokens" 
+         */
+        :root {
+            /* Colors */
+            --color-bg: #f8f9fa;
+            --color-text: #1a1a1a;
+            --color-text-secondary: #666;
+            --color-card-bg: #ffffff;
+            --color-card-border: rgba(0, 0, 0, 0.05);
+            --color-primary: #3b82f6;
+            --color-accent: #8b5cf6;
+            --color-success: #10b981;
+
+            /* Shadows & Depth */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-neon: 0 0 0 transparent;
+
+            /* Spacing */
+            --spacing-unit: 8px;
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+
+            /* Typography */
+            --font-kr: 'Noto Sans KR', sans-serif;
+            --font-en: 'Montserrat', sans-serif;
+        }
+
+        /* 
+         * DARK MODE 2.0 
+         * Demonstrating "Dark Mode" concept
+         */
+        [data-theme="dark"] {
+            --color-bg: #0f172a;
+            --color-text: #f1f5f9;
+            --color-text-secondary: #94a3b8;
+            --color-card-bg: rgba(30, 41, 59, 0.7);
+            --color-card-border: rgba(255, 255, 255, 0.1);
+            --color-primary: #60a5fa;
+            --color-accent: #a78bfa;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            --shadow-neon: 0 0 15px rgba(59, 130, 246, 0.3);
+        }
+
+        /* RESET & BASE */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-kr);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-en);
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .korean-title {
+            font-family: var(--font-kr);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+
+        /* LAYOUT UTILITIES */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        /* 
+         * GNB (Global Navigation Bar)
+         * Concept Demonstration
+         */
+        .gnb {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--color-card-border);
+        }
+
+        [data-theme="dark"] .gnb {
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .gnb-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-family: var(--font-en);
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            font-size: 0.95rem;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* 
+         * TOGGLE / SWITCH 
+         * Concept Demonstration
+         */
+        .theme-toggle {
+            position: relative;
+            width: 52px;
+            height: 28px;
+            background: #cbd5e1;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            padding: 2px;
+            transition: background 0.3s;
+        }
+
+        [data-theme="dark"] .theme-toggle {
+            background: var(--color-primary);
+        }
+
+        .toggle-thumb {
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transform: translateX(0);
+            transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        [data-theme="dark"] .toggle-thumb {
+            transform: translateX(24px);
+        }
+
+        /* 
+         * HERO SECTION 
+         * Concept Demonstration: Kinetic Typography
+         */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--color-primary) 0%, transparent 70%);
+            opacity: 0.1;
+            filter: blur(80px);
+            z-index: -1;
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--color-text) 0%, var(--color-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 40px;
+            max-width: 600px;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            opacity: 0.5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.8rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        /* 
+         * BENTO GRID
+         * Concept Demonstration
+         */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: var(--color-card-bg);
+            border: 1px solid var(--color-card-border);
+            border-radius: var(--radius-md);
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg), var(--shadow-neon);
+            z-index: 10;
+            /* Micro z-index demo */
+        }
+
+        .card-large {
+            /* Kept for background gradient */
+            background: linear-gradient(135deg, var(--color-card-bg) 0%, rgba(59, 130, 246, 0.1) 100%);
+        }
+
+        .card-tall {
+            /* Removed structural props */
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            width: 50px;
+            height: 50px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3 small {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            font-weight: 400;
+        }
+
+        .card p {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* 
+         * INTERACTION ELEMENTS
+         */
+        .interaction-demo {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        /* CTA Demo */
+        .cta-button {
+            background: var(--color-primary);
+            color: white;
+            padding: 16px 32px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        .cta-button:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .cta-button:active {
+            transform: scale(0.95);
+        }
+
+        /* Micro-interaction Demo (Heart) */
+        .heart-btn {
+            background: var(--color-card-bg);
+            border: 1px solid var(--color-card-border);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .heart-btn.active {
+            background: #fee2e2;
+            border-color: #ef4444;
+            color: #ef4444;
+            animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.3);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Accordion Demo */
+        .accordion {
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid var(--color-card-border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background: var(--color-card-bg);
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid var(--color-card-border);
+        }
+
+        .accordion-item:last-child {
+            border-bottom: none;
+        }
+
+        .accordion-header {
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: transparent;
+            font-weight: 600;
+            color: var(--color-text);
+            text-align: left;
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-content {
+            height: 0;
+            overflow: hidden;
+            transition: height 0.3s ease;
+            padding: 0 20px;
+            color: var(--color-text-secondary);
+        }
+
+        .accordion-item.open .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-item.open .accordion-content {
+            height: auto;
+            padding-bottom: 20px;
+        }
+
+
+        /* 
+         * CHIP & TOOLTIP
+         */
+        .chip-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .chip {
+            padding: 8px 16px;
+            background: var(--color-bg);
+            border: 1px solid var(--color-card-border);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+            color: var(--color-text-secondary);
+        }
+
+        .chip.active {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+            font-weight: 500;
+        }
+
+        .chip:hover:not(.active) {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip-trigger {
+            width: 40px;
+            height: 40px;
+            background: var(--color-card-bg);
+            border: 1px solid var(--color-card-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: help;
+            color: var(--color-text-secondary);
+            font-size: 1.2rem;
+        }
+
+        .tooltip-box {
+            position: absolute;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: var(--color-text);
+            color: var(--color-bg);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+            box-shadow: var(--shadow-md);
+            z-index: 10;
+        }
+
+        .tooltip-box::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px;
+            border-style: solid;
+            border-color: var(--color-text) transparent transparent transparent;
+        }
+
+        .tooltip-trigger:hover .tooltip-box {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* 
+         * FEEDBACK & STATES
+         */
+        /* Skeleton */
+        .skeleton-card {
+            width: 100%;
+            padding: 20px;
+            background: var(--color-card-bg);
+            border: 1px solid var(--color-card-border);
+            border-radius: var(--radius-sm);
+        }
+
+        .skeleton-shimmer {
+            background: #e2e8f0;
+            background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite linear;
+            border-radius: 4px;
+        }
+
+        [data-theme="dark"] .skeleton-shimmer {
+            background: #334155;
+            background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        /* Toast */
+        .toast-demo-area {
+            position: relative;
+            height: 120px;
+            background: var(--color-bg);
+            border: 1px solid var(--color-card-border);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0 12px;
+            overflow: visible;
+            box-sizing: border-box;
+        }
+
+        .toast-popup {
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%) translateY(60px);
+            background: #1a1a1a;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            max-width: 90%;
+            z-index: 10;
+            box-sizing: border-box;
+        }
+
+        .toast-popup.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        [data-theme="dark"] .toast-popup {
+            background: white;
+            color: black;
+        }
+
+        /* Badge */
+        .badge-container {
+            position: relative;
+            display: inline-flex;
+            cursor: pointer;
+        }
+
+        .badge-icon {
+            font-size: 2.2rem;
+            color: var(--color-text-secondary);
+            transition: color 0.3s;
+        }
+
+        .badge-container:hover .badge-icon {
+            color: var(--color-primary);
+        }
+
+        .badge-dot {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: #ef4444;
+            color: white;
+            min-width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--color-card-bg);
+            padding: 0 4px;
+            animation: bounceIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes bounceIn {
+            from {
+                transform: scale(0);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        /* Empty State */
+        .empty-state-box {
+            text-align: center;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 140px;
+            background: var(--color-bg);
+            border: 1px solid var(--color-card-border);
+            border-radius: var(--radius-sm);
+        }
+
+        .empty-state-box .cta-button {
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            line-height: 1.1;
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+            color: var(--color-text-secondary);
+            opacity: 0.3;
+            margin-bottom: 15px;
+        }
+
+        /* 
+         * VISUAL TRENDS - Z-Index & Glassmorphism
+         */
+        /* Kinetic Typography Demo */
+        .kinetic-text {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: kineticMove 2s infinite alternate ease-in-out;
+            display: inline-block;
+        }
+
+        @keyframes kineticMove {
+            0% {
+                transform: scale(1) skewX(0deg);
+                letter-spacing: -1px;
+            }
+
+            100% {
+                transform: scale(1.1) skewX(-10deg);
+                letter-spacing: 2px;
+            }
+        }
+
+        /* Glassmorphism Demo */
+        .glass-demo-container {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .glass-demo-box {
+            width: 60%;
+            height: 60%;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Dark Mode Demo */
+        .darkmode-demo {
+            display: flex;
+            gap: 20px;
+        }
+
+        .dm-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .dm-light {
+            background: #ffffff;
+            color: #1a1a1a;
+        }
+
+        .dm-dark {
+            background: #1e293b;
+            color: #f8fafc;
+        }
+
+        .z-index-stage {
+            height: 400px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+        }
+
+        .glass-card {
+            width: 280px;
+            height: 180px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-md);
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--color-text);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .glass-card:nth-child(1) {
+            top: 50px;
+            left: calc(50% - 140px);
+            z-index: 1;
+            background: rgba(59, 130, 246, 0.2);
+        }
+
+        .glass-card:nth-child(2) {
+            top: 100px;
+            left: calc(50% - 80px);
+            z-index: 2;
+            background: rgba(139, 92, 246, 0.2);
+        }
+
+        .glass-card:nth-child(3) {
+            top: 150px;
+            left: calc(50% - 200px);
+            z-index: 3;
+            background: rgba(16, 185, 129, 0.2);
+        }
+
+        .glass-card:hover {
+            z-index: 100 !important;
+            transform: scale(1.1) translateZ(20px);
+            background: var(--color-card-bg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* 
+         * WORKFLOW - Process
+         */
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            position: relative;
+        }
+
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 50px;
+            right: 50px;
+            height: 2px;
+            background: var(--color-card-border);
+            z-index: 0;
+        }
+
+        .step {
+            position: relative;
+            z-index: 1;
+            width: 23%;
+            text-align: center;
+        }
+
+        .step-circle {
+            width: 80px;
+            height: 80px;
+            background: var(--color-card-bg);
+            border: 2px solid var(--color-primary);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: var(--color-primary);
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease;
+        }
+
+        .step:hover .step-circle {
+            background: var(--color-primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .step h4 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .step p {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+        }
+
+        /* 
+         * FOOTER 
+         */
+        .site-footer {
+            background: var(--color-card-bg);
+            padding: 60px 0;
+            border-top: 1px solid var(--color-card-border);
+            text-align: center;
+        }
+
+        .learning-tip {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+            color: white;
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .learning-tip h3 {
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .bento-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .process-steps {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .process-steps::before {
+                width: 2px;
+                height: calc(100% - 80px);
+                left: 50%;
+                top: 40px;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-large,
+            .card-tall {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            .nav-links {
+                display: none;
+                /* Simplification for mobile */
+            }
+
+            .z-index-stage {
+                height: 300px;
+            }
+
+            .glass-card {
+                width: 220px;
+            }
+        }
+
+        /* Breadcrumbs styling for Section 1 demo */
+        .breadcrumbs-demo {
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 10px;
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 20px;
+        }
+
+        [data-theme="dark"] .breadcrumbs-demo {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .section-header {
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--color-primary);
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* NEW VISUAL DEMOS ADDED */
+        .visual-demo-box {
+            margin-top: 15px;
+            background: var(--color-bg);
+            border: 1px solid var(--color-card-border);
+            border-radius: var(--radius-sm);
+            padding: 15px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        /* Inclusive Design */
+        .contrast-demo {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .contrast-box {
+            flex: 1;
+            padding: 10px;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .contrast-bad {
+            background: #ffffff;
+            color: #e0e0e0;
+            /* Very low contrast */
+        }
+
+        .contrast-good {
+            background: #ffffff;
+            color: #1a1a1a;
+            /* High contrast */
+            font-weight: bold;
+        }
+
+        [data-theme="dark"] .contrast-bad {
+            background: #1e293b;
+            color: #334155;
+        }
+
+        [data-theme="dark"] .contrast-good {
+            background: #1e293b;
+            color: #ffffff;
+        }
+
+        /* Wireframe Demo */
+        .wireframe-layout {
+            width: 80px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            justify-content: center;
+        }
+
+        .wf-block {
+            background: #cbd5e1;
+            width: 100%;
+        }
+
+        .wf-header {
+            height: 12px;
+        }
+
+        .wf-img {
+            height: 35px;
+        }
+
+        .wf-text {
+            height: 4px;
+            margin-bottom: 2px;
+        }
+
+        [data-theme="dark"] .wf-block {
+            background: #475569;
+        }
+
+        /* Mockup Demo */
+        .mockup-layout .wf-block {
+            border-radius: 3px;
+        }
+
+        .mockup-layout .wf-header {
+            background: var(--color-primary);
+        }
+
+        .mockup-layout .wf-img {
+            background: var(--color-accent);
+            opacity: 0.8;
+        }
+
+        .mockup-layout .wf-text {
+            background: var(--color-text-secondary);
+            opacity: 0.5;
+        }
+
+        /* Prototype Demo */
+        .proto-btn {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .proto-btn:active {
+            transform: scale(0.95);
+            background: var(--color-success);
+        }
+
+        .proto-feedback {
+            margin-top: 8px;
+            font-size: 0.75rem;
+            color: var(--color-success);
+            font-weight: bold;
+            opacity: 0;
+            transform: translateY(5px);
+            transition: all 0.2s;
+        }
+
+        .proto-btn:active+.proto-feedback {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Design Token Demo */
+        .token-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            width: 100%;
+            max-width: 120px;
+        }
+
+        .token-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.7rem;
+            color: var(--color-text-secondary);
+        }
+
+        .token-swatch {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* 
+         * NEW DEMO STYLES (Part 1 & 2) 
+         */
+
+        /* Sticky Header Demo */
+        .sticky-demo-box {
+            height: 140px;
+            border: 1px solid var(--color-card-border);
+            border-radius: var(--radius-sm);
+            overflow-y: auto;
+            background: var(--color-bg);
+            scrollbar-width: thin;
+        }
+
+        .sticky-demo-box::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .sticky-demo-box::-webkit-scrollbar-thumb {
+            background: var(--color-primary);
+            border-radius: 4px;
+        }
+
+        .sticky-header-mini {
+            position: sticky;
+            top: 0;
+            height: 28px;
+            background: var(--color-primary);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        .sticky-text-line {
+            height: 8px;
+            background: rgba(0, 0, 0, 0.08);
+            margin: 8px 12px;
+            border-radius: 4px;
+            width: calc(100% - 24px);
+        }
+
+        [data-theme="dark"] .sticky-text-line {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .sticky-text-line:nth-child(odd) {
+            width: calc(70% - 24px);
+        }
+
+        .sticky-text-line:nth-child(3n) {
+            width: calc(50% - 24px);
+        }
+
+        /* Carousel Demo */
+        .carousel-demo {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-sm);
+            height: 120px;
+            background: var(--color-bg);
+            border: 1px solid var(--color-card-border);
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            height: 100%;
+            width: 300%;
+            /* 3 slides */
+        }
+
+        .carousel-slide {
+            width: 33.333%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            position: relative;
+        }
+
+        .slide-1 {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+
+        .slide-2 {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        }
+
+        .slide-3 {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            pointer-events: none;
+            /* Let clicks pass through to container if needed */
+        }
+
+        .carousel-btn {
+            pointer-events: auto;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: background 0.2s;
+        }
+
+        .carousel-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: width 0.3s, background 0.3s;
+        }
+
+        .dot.active {
+            background: white;
+            width: 16px;
+            border-radius: 4px;
+        }
+
+        /* Drawer Demo */
+        .drawer-demo-box {
+            position: relative;
+            height: 120px;
+            background: var(--color-bg);
+            border: 1px solid var(--color-card-border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background-image: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+            background-size: 10px 10px;
+        }
+
+        .drawer-panel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 70%;
+            height: 100%;
+            background: var(--color-card-bg);
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            padding: 12px;
+            border-right: 1px solid var(--color-card-border);
+        }
+
+        .drawer-panel.open {
+            transform: translateX(0);
+        }
+
+        .drawer-trigger {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 8px 12px;
+            background: var(--color-primary);
+            color: white;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .drawer-lines {
+            width: 100%;
+            height: 6px;
+            background: rgba(0, 0, 0, 0.08);
+            margin-bottom: 6px;
+            border-radius: 3px;
+        }
+
+        [data-theme="dark"] .drawer-lines {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Bottom Sheet Demo */
+        .bottom-sheet-demo-box {
+            position: relative;
+            height: 120px;
+            background: var(--color-bg);
+            border: 1px solid var(--color-card-border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background-image: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+            background-size: 10px 10px;
+        }
+
+        .sheet-panel {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 75%;
+            background: var(--color-card-bg);
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 10;
+            border-radius: 12px 12px 0 0;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-top: 1px solid var(--color-card-border);
+        }
+
+        .sheet-panel.open {
+            transform: translateY(0);
+        }
+
+        .sheet-handle {
+            width: 30px;
+            height: 3px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 2px;
+            margin-bottom: 8px;
+        }
+
+        .sheet-trigger {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 8px 16px;
+            background: var(--color-accent);
+            color: white;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+
+        /* 
+         * NEW VISUAL & PROCESS DEMOS 
+         */
+        /* Fluid Typography */
+        .fluid-anim-box {
+            animation: fluidBox 4s infinite ease-in-out;
+            border-right: 2px solid var(--color-primary);
+            background: rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0 auto;
+            border-radius: 4px;
+            height: 60px;
+        }
+
+        @keyframes fluidBox {
+
+            0%,
+            100% {
+                width: 100%;
+            }
+
+            50% {
+                width: 40%;
+            }
+        }
+
+        .fluid-text {
+            animation: fluidFont 4s infinite ease-in-out;
+            white-space: nowrap;
+            font-weight: 800;
+            color: var(--color-text);
+        }
+
+        @keyframes fluidFont {
+
+            0%,
+            100% {
+                font-size: 1.5rem;
+            }
+
+            50% {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Progressive Disclosure */
+        .prog-disc-box {
+            width: 100%;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .prog-form-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: var(--color-text);
+        }
+
+        .prog-advanced-area {
+            display: none;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--color-card-border);
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .prog-advanced-area.show {
+            display: block;
+        }
+
+        .prog-toggle-btn {
+            background: none;
+            color: var(--color-primary);
+            font-size: 0.8rem;
+            padding: 0;
+            text-decoration: underline;
+            margin-top: 5px;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="gnb">
+        <div class="gnb-inner">
+            <a href="#" class="logo">DESIGN <span style="color:var(--color-text);">TERMS</span></a>
+            <div class="nav-links">
+                <a href="#layout" class="nav-link">Structure</a>
+                <a href="#layout-patterns" class="nav-link">Patterns</a>
+                <a href="#interaction-elements" class="nav-link">Interaction</a>
+                <a href="#feedback-states" class="nav-link">Feedback</a>
+                <a href="#visual" class="nav-link">Visual</a>
+                <a href="#process" class="nav-link">Process</a>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode">
+                <div class="toggle-thumb">🌙</div>
+            </button>
+        </div>
+    </nav>
+
+    <header class="container hero">
+        <div class="breadcrumbs-demo">Home > Education > Terminology</div>
+        <h1 class="hero-title">웹 디자인 용어<br>완벽 가이드</h1>
+        <p class="hero-subtitle">AI에게 디자인 작업을 위임하기 위한 필수 언어.<br>이 용어들을 알면 AI가 당신의 의도를 정확히 이해합니다.</p>
+        <div class="hero-scroll">
+            <span>Scroll to learn</span>
+            <span>↓</span>
+        </div>
+    </header>
+
+    <section id="layout" class="container">
+        <div class="section-header">
+            <span class="section-tag">Part 1</span>
+            <h2>페이지 뼈대<br><span class="korean-title" style="font-weight:300; font-size:1.5rem;">Page Structure</span>
+            </h2>
+            <p style="margin-top: 10px; color: var(--color-text-secondary);">웹페이지의 기본 골격을 구성하는 요소들</p>
+        </div>
+
+        <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 40px;">
+            <div class="card">
+                <div class="card-icon">🧭</div>
+                <h3>GNB <small>Global Navigation Bar</small></h3>
+                <p>사이트 최상단에 항상 고정된 메뉴 바입니다. 모든 페이지에서 공통적으로 보입니다.</p>
+                <div class="visual-demo-box">
+                    <div style="width:100%; height:100%; display:flex; flex-direction:column;">
+                        <div style="height:20px; background:var(--color-primary); width:100%;"></div>
+                        <div style="flex:1; background:rgba(0,0,0,0.05); width:100%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">📌</div>
+                <h3>Sticky Header <small>스티키 헤더</small></h3>
+                <p>스크롤해도 상단에 고정되어 따라오는 헤더입니다. 이 페이지의 GNB가 바로 스티키 헤더입니다.</p>
+                <div class="visual-demo-box" style="padding:0;">
+                    <div class="sticky-demo-box">
+                        <div class="sticky-header-mini">↓ 스크롤 해보세요</div>
+                        <div class="sticky-text-line"></div>
+                        <div class="sticky-text-line"></div>
+                        <div class="sticky-text-line"></div>
+                        <div class="sticky-text-line"></div>
+                        <div class="sticky-text-line"></div>
+                        <div class="sticky-text-line"></div>
+                        <div class="sticky-text-line"></div>
+                        <div class="sticky-text-line"></div>
+                        <div class="sticky-text-line"></div>
+                        <div class="sticky-text-line"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🦸</div>
+                <h3>Hero Section <small>히어로 섹션</small></h3>
+                <p>웹페이지 접속 시 가장 먼저 보이는 상단 영역입니다. 사용자의 시선을 사로잡는 역할을 합니다.</p>
+                <div class="visual-demo-box">
+                    <div
+                        style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.1)); text-align:center;">
+                        <div>
+                            <div
+                                style="width:80px; height:8px; background:var(--color-primary); margin:0 auto 5px; border-radius:4px;">
+                            </div>
+                            <div
+                                style="width:120px; height:4px; background:var(--color-text-secondary); margin:0 auto; border-radius:2px; opacity:0.5;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🍞</div>
+                <h3>Breadcrumbs <small>브레드크럼</small></h3>
+                <p>"홈 > 카테고리 > 상세페이지"처럼 현재 위치를 보여주는 경로 표시입니다.</p>
+                <div class="visual-demo-box">
+                    <div class="breadcrumbs-demo" style="font-size:0.7rem;">Home > Depth 1 > Depth 2</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🦶</div>
+                <h3>Footer <small>푸터</small></h3>
+                <p>사이트 맨 아래 영역입니다. 사업자 정보, 약관, SNS 링크 등이 위치합니다.</p>
+                <div class="visual-demo-box">
+                    <div
+                        style="width:100%; height:100%; display:flex; flex-direction:column; justify-content:flex-end;">
+                        <div
+                            style="height:30px; background:rgba(0,0,0,0.1); width:100%; display:flex; align-items:center; justify-content:center; font-size:0.6rem; color:var(--color-text-secondary);">
+                            Copyright © ...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="layout-patterns" class="container">
+        <div class="section-header">
+            <span class="section-tag">Part 2</span>
+            <h2>레이아웃 패턴<br><span class="korean-title" style="font-weight:300; font-size:1.5rem;">Layout Patterns</span>
+            </h2>
+            <p style="margin-top: 10px; color: var(--color-text-secondary);">콘텐츠를 배치하고 표시하는 방식들</p>
+        </div>
+
+        <div class="bento-grid">
+            <div class="card card-large">
+                <div class="card-icon">🍱</div>
+                <h3>Bento Grid <small>벤토 그리드</small></h3>
+                <p>도시락 통(Bento box)처럼 직사각형 칸들을 나누어 정보를 배치하는 최신 레이아웃 트렌드입니다. 지금 이 섹션 자체가 벤토 그리드입니다!</p>
+                <div class="visual-demo-box"
+                    style="margin-top:20px; height:150px; background:transparent; border:none;">
+                    <div
+                        style="display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:10px; width:100%; height:100%;">
+                        <div style="background:rgba(59,130,246,0.2); border-radius:8px; grid-row:span 2;"></div>
+                        <div style="background:rgba(139,92,246,0.2); border-radius:8px;"></div>
+                        <div style="background:rgba(16,185,129,0.2); border-radius:8px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🎠</div>
+                <h3>Carousel <small>캐러셀</small></h3>
+                <p>콘텐츠를 좌우로 슬라이드하며 보여주는 UI입니다. 여러 항목을 한 공간에 순차적으로 표시합니다.</p>
+                <div class="carousel-demo" style="margin-top:15px;">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-slide slide-1">1</div>
+                        <div class="carousel-slide slide-2">2</div>
+                        <div class="carousel-slide slide-3">3</div>
+                    </div>
+                    <div class="carousel-nav">
+                        <button class="carousel-btn" id="prevBtn">←</button>
+                        <button class="carousel-btn" id="nextBtn">→</button>
+                    </div>
+                    <div class="carousel-dots" id="carouselDots">
+                        <div class="dot active" data-index="0"></div>
+                        <div class="dot" data-index="1"></div>
+                        <div class="dot" data-index="2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🗄️</div>
+                <h3>Drawer Menu <small>드로워 메뉴</small></h3>
+                <p>화면 옆에서 슬라이드되어 나오는 메뉴 패널입니다. 햄버거 메뉴를 누르면 나타나는 형태입니다.</p>
+                <div class="drawer-demo-box" style="margin-top:15px;">
+                    <button class="drawer-trigger" onclick="toggleDrawer()">☰ Menu</button>
+                    <div class="drawer-panel" id="drawerPanel">
+                        <div class="drawer-lines" style="width:60%"></div>
+                        <div class="drawer-lines"></div>
+                        <div class="drawer-lines"></div>
+                        <button
+                            style="margin-top:auto; font-size:0.7rem; padding:4px 8px; border:1px solid rgba(255,255,255,0.3); border-radius:4px; background:none; color:var(--color-text);"
+                            onclick="toggleDrawer()">Close</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">📄</div>
+                <h3>Bottom Sheet <small>바텀 시트</small></h3>
+                <p>화면 아래에서 올라오는 패널입니다. 모바일에서 공유, 옵션 선택 등에 자주 사용됩니다.</p>
+                <div class="bottom-sheet-demo-box" style="margin-top:15px;">
+                    <button class="sheet-trigger" onclick="toggleSheet()">Open Sheet</button>
+                    <div class="sheet-panel" id="sheetPanel">
+                        <div class="sheet-handle"></div>
+                        <p style="font-size:0.75rem; margin-bottom:6px; color:var(--color-text);">Options</p>
+                        <div class="drawer-lines"></div>
+                        <div class="drawer-lines"></div>
+                        <button
+                            style="margin-top:6px; width:100%; padding:6px; background:var(--color-bg); border:none; border-radius:4px; font-size:0.7rem; color:var(--color-text);"
+                            onclick="toggleSheet()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="interaction-elements" class="container"
+        style="background: rgba(0,0,0,0.02); border-radius: 30px; margin: 100px auto;">
+        <div class="section-header">
+            <span class="section-tag">Part 3</span>
+            <h2>사용자와 "상호작용"하는 요소<br><span class="korean-title" style="font-weight:300; font-size:1.5rem;">Interaction
+                    Elements</span></h2>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+
+            <!-- 1. CTA Button -->
+            <div class="card">
+                <div class="card-icon">👆</div>
+                <h3>CTA Button <small>행동 유도 버튼</small></h3>
+                <p>사용자에게 명확한 행동(구매, 가입 등)을 요청하는 주요 버튼입니다.</p>
+                <div class="visual-demo-box" style="border:none; background:transparent;">
+                    <button class="cta-button">Get Started</button>
+                </div>
+            </div>
+
+            <!-- 2. Toggle / Switch -->
+            <div class="card">
+                <div class="card-icon">🌗</div>
+                <h3>Toggle / Switch <small>토글/스위치</small></h3>
+                <p>'켜짐/꺼짐' 두 가지 상태 중 하나를 즉시 변경할 때 사용합니다.</p>
+                <div class="visual-demo-box" style="border:none; background:transparent;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span>Off</span>
+                        <div class="theme-toggle" id="demoToggle" style="cursor: pointer;">
+                            <div class="toggle-thumb"></div>
+                        </div>
+                        <span>On</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Accordion -->
+            <div class="card">
+                <div class="card-icon">🎹</div>
+                <h3>Accordion <small>아코디언</small></h3>
+                <p>제목을 누르면 내용이 펼쳐집니다. 많은 정보를 간결하게 보여줍니다.</p>
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span>View Details</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <p style="padding: 15px; font-size:0.9rem;">숨겨진 내용이 펼쳐집니다. 스크롤을 줄이는 데 효과적입니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Chip -->
+            <div class="card">
+                <div class="card-icon">💊</div>
+                <h3>Chip <small>칩</small></h3>
+                <p>태그나 필터를 나타내는 작은 버튼입니다. 클릭해서 선택/해제 해보세요.</p>
+                <div class="visual-demo-box" style="border:none; background:transparent;">
+                    <div class="chip-container">
+                        <div class="chip active" onclick="this.classList.toggle('active')">UX</div>
+                        <div class="chip" onclick="this.classList.toggle('active')">UI</div>
+                        <div class="chip" onclick="this.classList.toggle('active')">Web</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Tooltip -->
+            <div class="card">
+                <div class="card-icon">💬</div>
+                <h3>Tooltip <small>툴팁</small></h3>
+                <p>요소에 마우스를 올렸을 때 나타나는 도움말입니다. 물음표에 마우스를 올려보세요.</p>
+                <div class="visual-demo-box" style="border:none; background:transparent;">
+                    <div class="tooltip-container">
+                        <div class="tooltip-trigger">?</div>
+                        <div class="tooltip-box">추가 설명이 나옵니다!</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="feedback-states" class="container">
+        <div class="section-header">
+            <span class="section-tag">Part 4</span>
+            <h2>피드백 & 상태<br><span class="korean-title" style="font-weight:300; font-size:1.5rem;">Feedback &
+                    States</span></h2>
+            <p style="margin-top: 10px; color: var(--color-text-secondary);">시스템이 사용자에게 보여주는 반응들</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+
+            <div class="card">
+                <div class="card-icon">💀</div>
+                <h3>Skeleton Screen <small>스켈레톤</small></h3>
+                <p>로딩 중에 보여주는 뼈대 화면입니다. 체감 대기 시간을 줄여줍니다.</p>
+                <div class="visual-demo-box" style="border:none; background:transparent;">
+                    <div class="skeleton-card">
+                        <div class="skeleton-shimmer" style="width: 60%; height: 20px; margin-bottom: 15px;"></div>
+                        <div class="skeleton-shimmer" style="width: 100%; height: 12px; margin-bottom: 8px;"></div>
+                        <div class="skeleton-shimmer" style="width: 90%; height: 12px; margin-bottom: 8px;"></div>
+                        <div class="skeleton-shimmer" style="width: 80%; height: 12px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🍞</div>
+                <h3>Toast / Snackbar <small>토스트/스낵바</small></h3>
+                <p>잠깐 나타났다 사라지는 알림입니다. 작업 결과를 가볍게 알려줍니다.</p>
+                <div class="toast-demo-area" style="margin-top: 15px;">
+                    <button class="cta-button" style="padding: 10px 18px; font-size: 0.85rem;"
+                        onclick="window.showToast(this)">Show Toast</button>
+                    <div class="toast-popup">✅ 저장되었습니다</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🔴</div>
+                <h3>Badge <small>배지</small></h3>
+                <p>아이콘 위에 붙는 작은 점이나 숫자입니다. 알림이 있음을 알려줍니다.</p>
+                <div class="visual-demo-box" style="border:none; background:transparent;">
+                    <div class="badge-container">
+                        <div class="badge-icon">🔔</div>
+                        <div class="badge-dot">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">📭</div>
+                <h3>Empty State <small>빈 상태</small></h3>
+                <p>데이터가 없을 때 보여주는 화면입니다. 다음 행동을 안내해야 합니다.</p>
+                <div class="empty-state-box" style="margin-top: 15px;">
+                    <div class="empty-icon">📂</div>
+                    <p style="font-size: 0.9rem; margin-bottom: 10px;">파일이 없습니다.</p>
+                    <button class="cta-button">새로 만들기</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">❤️</div>
+                <h3>Micro-interaction <small>마이크로 인터랙션</small></h3>
+                <p>사용자의 행동에 대한 미세한 애니메이션 반응입니다. 즐거움을 줍니다.</p>
+                <div class="visual-demo-box" style="border:none; background:transparent;">
+                    <button class="heart-btn" onclick="this.classList.toggle('active')">♥</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="visual" class="container" style="margin-top: 100px;">
+        <div class="section-header">
+            <span class="section-tag">Part 5</span>
+            <h2>"시각적 깊이"와 "최신 트렌드"<br><span class="korean-title" style="font-weight:300; font-size:1.5rem;">Visual
+                    Effects & Trends</span></h2>
+            <p style="margin-top: 10px; color: var(--color-text-secondary);">현대적인 시각 스타일링 기법들</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+            <!-- 1. Glassmorphism -->
+            <div class="card">
+                <h3>Glassmorphism <small>글래스모피즘</small></h3>
+                <p>반투명 유리처럼 보이는 효과입니다. 배경을 흐리게(blur) 처리하여 깊이감을 줍니다.</p>
+                <div class="visual-demo-box" style="padding: 0;">
+                    <div class="glass-demo-container">
+                        <div class="glass-demo-box">Frosted</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Kinetic Typography -->
+            <div class="card">
+                <h3>Kinetic Typography <small>키네틱 타이포그래피</small></h3>
+                <p>텍스트가 움직이거나 애니메이션되는 효과입니다. 시선을 사로잡는 강력한 수단입니다.</p>
+                <div class="visual-demo-box">
+                    <span class="kinetic-text">MOVING</span>
+                </div>
+            </div>
+
+            <!-- 3. Dark Mode 2.0 -->
+            <div class="card">
+                <h3>Dark Mode 2.0 <small>다크 모드</small></h3>
+                <p>단순 검정이 아닌, 짙은 회색과 계층 구조를 가진 눈이 편안한 테마입니다.</p>
+                <div class="visual-demo-box">
+                    <div class="darkmode-demo">
+                        <div class="dm-box dm-light">☀️</div>
+                        <div class="dm-box dm-dark">🌙</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Z-index -->
+            <div class="card" style="grid-column: span 1; display: flex; flex-direction: column;">
+                <h3>Z-index <small>Z-축 계층</small></h3>
+                <p>요소의 앞뒤 순서(레이어)를 결정합니다. 카드를 호버하여 계층 변화를 확인하세요.</p>
+                <div class="z-index-stage"
+                    style="height: 200px; background: rgba(0,0,0,0.02); border-radius: var(--radius-md); margin-top: auto;">
+                    <div class="glass-card"
+                        style="top: 20px; left: calc(50% - 100px); z-index: 1; background: rgba(59, 130, 246, 0.2); width: 140px; height: 100px;">
+                        <h4 style="font-size: 0.9rem;">1</h4>
+                    </div>
+                    <div class="glass-card"
+                        style="top: 50px; left: calc(50% - 60px); z-index: 2; background: rgba(139, 92, 246, 0.2); width: 140px; height: 100px;">
+                        <h4 style="font-size: 0.9rem;">2</h4>
+                    </div>
+                    <div class="glass-card"
+                        style="top: 80px; left: calc(50% - 140px); z-index: 3; background: rgba(16, 185, 129, 0.2); width: 140px; height: 100px;">
+                        <h4 style="font-size: 0.9rem;">3</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Fluid Typography (NEW) -->
+            <div class="card">
+                <h3>Fluid Typography <small>플루이드 타이포그래피</small></h3>
+                <p>화면 크기에 따라 글꼴 크기가 부드럽게 변하는 기법입니다. CSS clamp()를 사용합니다.</p>
+                <div class="visual-demo-box">
+                    <div class="fluid-anim-box">
+                        <span class="fluid-text">Fluid Resize</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Inclusive Design -->
+            <div class="card">
+                <h3>Inclusive Design <small>포용적 디자인</small></h3>
+                <p>모든 사용자를 배려하는 디자인입니다. 충분한 명도 대비(Contrast)가 핵심입니다.</p>
+                <div class="contrast-demo">
+                    <div class="contrast-box contrast-bad">
+                        <span>Bad<br>Low Contrast</span>
+                    </div>
+                    <div class="contrast-box contrast-good">
+                        <span>Good<br>High Contrast</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="process" class="container" style="margin-top: 50px;">
+        <div class="section-header">
+            <span class="section-tag">Part 6</span>
+            <h2>"디자인 프로세스"<br><span class="korean-title" style="font-weight:300; font-size:1.5rem;">Design
+                    Process</span></h2>
+            <p style="margin-top: 10px; color: var(--color-text-secondary);">디자인 작업 단계와 방법론</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+            <div class="card">
+                <div class="card-icon">1️⃣</div>
+                <h3>Wireframe <small>와이어프레임</small></h3>
+                <p>선과 상자로만 구성한 뼈대 설계도입니다. 구조를 잡는 첫 단계입니다.</p>
+                <div class="visual-demo-box">
+                    <div class="wireframe-layout">
+                        <div class="wf-block wf-header"></div>
+                        <div class="wf-block wf-img"></div>
+                        <div class="wf-block wf-text" style="width: 80%"></div>
+                        <div class="wf-block wf-text" style="width: 60%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">2️⃣</div>
+                <h3>Mockup <small>목업</small></h3>
+                <p>색상, 폰트, 이미지를 입힌 정적인 디자인 완성본입니다.</p>
+                <div class="visual-demo-box">
+                    <div class="wireframe-layout mockup-layout">
+                        <div class="wf-block wf-header"></div>
+                        <div class="wf-block wf-img"></div>
+                        <div class="wf-block wf-text" style="width: 80%"></div>
+                        <div class="wf-block wf-text" style="width: 60%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">3️⃣</div>
+                <h3>Prototype <small>프로토타입</small></h3>
+                <p>실제 동작을 클릭해볼 수 있는 시뮬레이션입니다.</p>
+                <div class="visual-demo-box">
+                    <button class="proto-btn">Click Me!</button>
+                    <div class="proto-feedback">Action Done!</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🎨</div>
+                <h3>Design Token <small>디자인 토큰</small></h3>
+                <p>색상, 간격 등 디자인 값을 변수로 관리하여 일관성을 유지합니다.</p>
+                <div class="visual-demo-box">
+                    <div class="token-grid">
+                        <div class="token-item">
+                            <div class="token-swatch" style="background:var(--color-primary)"></div><span>P</span>
+                        </div>
+                        <div class="token-item">
+                            <div class="token-swatch" style="background:var(--color-accent)"></div><span>A</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">✨</div>
+                <h3>Progressive Disclosure <small>점진적 공개</small></h3>
+                <p>정보를 단계적으로 보여주는 기법입니다. "더보기"를 눌러 확인하세요.</p>
+                <div class="visual-demo-box" style="height: auto; min-height: 120px; align-items: stretch;">
+                    <div class="prog-disc-box">
+                        <div class="prog-form-item">
+                            <input type="checkbox" checked disabled> <span>기본 옵션</span>
+                        </div>
+                        <button class="prog-toggle-btn" onclick="window.toggleProgressive(this)">Show Advanced
+                            Options</button>
+                        <div class="prog-advanced-area">
+                            <div class="prog-form-item">
+                                <input type="checkbox"> <span>고급 설정 1</span>
+                            </div>
+                            <div class="prog-form-item">
+                                <input type="checkbox"> <span>고급 설정 2</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer" style="margin-top: 50px;">
+        <div class="container">
+            <div class="learning-tip">
+                <h3>💡 AI에게 지시할 때</h3>
+                <p>"상단에 GNB 만들어줘", "벤토 그리드로 배치해줘", "CTA 버튼 강조해줘"<br>
+                    이 용어들을 사용하면 AI가 정확히 무엇을 원하는지 이해하고 빠르게 구현합니다.</p>
+            </div>
+
+            <div style="opacity: 0.6; font-size: 0.9rem;">
+                <p>Designed & Developed with Code. Illustrated concepts.</p>
+                <p style="margin-top: 10px;">&copy; 2026 Web Design Terminology Guide</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dark Mode Toggle Logic
+        const toggleBtn = document.getElementById('themeToggle');
+        const toggleThumb = toggleBtn.querySelector('.toggle-thumb');
+
+        // Check system preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.setAttribute('data-theme', 'dark');
+            toggleThumb.textContent = '☀️';
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.body.removeAttribute('data-theme');
+                toggleThumb.textContent = '🌙';
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                toggleThumb.textContent = '☀️';
+            }
+        });
+
+        // Accordion Logic
+        const accordions = document.querySelectorAll('.accordion-header');
+        accordions.forEach(acc => {
+            acc.addEventListener('click', function () {
+                const item = this.parentElement;
+
+                // Close others (optional)
+                document.querySelectorAll('.accordion-item').forEach(other => {
+                    if (other !== item) other.classList.remove('open');
+                });
+
+                item.classList.toggle('open');
+            });
+        });
+
+        // Kinetic Typography / Scroll Effect (Simple Parallax)
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const heroTitle = document.querySelector('.hero-title');
+            if (heroTitle) {
+                heroTitle.style.transform = `translateY(${scrolled * 0.4}px)`;
+                heroTitle.style.opacity = 1 - (scrolled / 700);
+            }
+        });
+
+        // ==========================================
+        // NEW INTERACTION LOGIC (Part 2)
+        // ==========================================
+
+        // Carousel Logic
+        const track = document.getElementById('carouselTrack');
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.dot');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let currentSlide = 0;
+
+        function updateCarousel() {
+            if (!track) return;
+            // The track width is 300%, so 1 slide is 33.333% of track width? 
+            // Actually, in CSS: .carousel-track { width: 300%; }
+            // So to show 2nd slide, we move -33.333% (1/3).
+            track.style.transform = `translateX(-${currentSlide * 33.3333}%)`;
+
+            if (dots.length) {
+                dots.forEach((dot, index) => {
+                    if (index === currentSlide) dot.classList.add('active');
+                    else dot.classList.remove('active');
+                });
+            }
+        }
+
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', () => {
+                currentSlide = (currentSlide === 0) ? 2 : currentSlide - 1; // Hardcoded for 3 slides
+                updateCarousel();
+            });
+
+            nextBtn.addEventListener('click', () => {
+                currentSlide = (currentSlide === 2) ? 0 : currentSlide + 1; // Hardcoded for 3 slides
+                updateCarousel();
+            });
+        }
+
+        if (dots.length) {
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    currentSlide = index;
+                    updateCarousel();
+                });
+            });
+        }
+
+        // Drawer Logic
+        window.toggleDrawer = function () {
+            const panel = document.getElementById('drawerPanel');
+            if (panel) panel.classList.toggle('open');
+        };
+
+        // Bottom Sheet Logic
+        window.toggleSheet = function () {
+            const panel = document.getElementById('sheetPanel');
+            if (panel) panel.classList.toggle('open');
+        };
+
+        // Toast Logic
+        window.showToast = function (btn) {
+            const container = btn.closest('.toast-demo-area');
+            const toast = container.querySelector('.toast-popup');
+
+            if (toast) {
+                toast.classList.add('show');
+
+                // Clear existing timeout if stored on the element
+                if (toast.dataset.timeoutId) {
+                    clearTimeout(parseInt(toast.dataset.timeoutId));
+                }
+
+                const id = setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2500);
+
+                toast.dataset.timeoutId = id;
+            }
+        };
+
+        // Progressive Disclosure Logic
+        window.toggleProgressive = function (btn) {
+            const container = btn.closest('.prog-disc-box');
+            const advanced = container.querySelector('.prog-advanced-area');
+
+            if (advanced.classList.contains('show')) {
+                advanced.classList.remove('show');
+                btn.textContent = 'Show Advanced Options';
+            } else {
+                advanced.classList.add('show');
+                btn.textContent = 'Hide Advanced Options';
+            }
+        };
+
+    </script>
+</body>
+
+</html>
