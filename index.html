@@ -1614,6 +1614,186 @@
                 transform: translateY(0);
             }
         }
+
+        /* 
+         * MOTION & ANIMATION SECTION 
+         */
+        .motion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        /* 1. 3D Tilt Card */
+        .tilt-card-wrap {
+            perspective: 1000px;
+        }
+
+        .tilt-card {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+            transform-style: preserve-3d;
+            transition: transform 0.1s;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tilt-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tilt-card:hover::before {
+            opacity: 1;
+        }
+
+        /* 2. Magnetic Button */
+        .magnetic-btn {
+            padding: 20px 40px;
+            background: var(--color-primary);
+            color: white;
+            border-radius: 50px;
+            font-weight: 800;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: inline-block;
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        /* 3. Neon Loader */
+        .loader-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background: #111;
+            border-radius: 12px;
+            width: 100%;
+            min-height: 150px;
+        }
+
+        .neon-pulse {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #0ea5e9;
+            box-shadow: 0 0 0 rgba(14, 165, 233, 0.7);
+            animation: pulse-blue 2s infinite;
+        }
+
+        @keyframes pulse-blue {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.7);
+            }
+
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 20px rgba(14, 165, 233, 0);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(14, 165, 233, 0);
+            }
+        }
+
+        /* 4. Gradient Border Animation */
+        .gradient-border-card {
+            position: relative;
+            background: var(--color-card-bg);
+            border-radius: 12px;
+            z-index: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 150px;
+            width: 100%;
+        }
+
+        .gradient-border-card::before {
+            content: '';
+            position: absolute;
+            top: -250%;
+            left: -250%;
+            width: 600%;
+            height: 600%;
+            background: conic-gradient(transparent, var(--color-primary), transparent 30%);
+            animation: rotate 4s linear infinite;
+            z-index: -2;
+        }
+
+        .gradient-border-card::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            background: var(--color-card-bg);
+            border-radius: 10px;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            100% {
+                transform: rotate(1turn);
+            }
+        }
+
+        /* 5. Isometric Design */
+        .isometric-box {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            background: var(--color-primary);
+            transform: rotateX(60deg) rotateY(0deg) rotateZ(45deg);
+            transform-style: preserve-3d;
+            box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .isometric-box::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            width: 10px;
+            height: 100%;
+            background: #2563eb;
+            transform: skewY(-45deg);
+            transform-origin: 100% 100%;
+        }
+
+        .isometric-box::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            width: 100%;
+            height: 10px;
+            background: #60a5fa;
+            transform: skewX(-45deg);
+            transform-origin: 100% 100%;
+        }
+
+        .isometric-box:hover {
+            transform: rotateX(60deg) rotateY(0deg) rotateZ(45deg) translateZ(10px);
+            box-shadow: 30px 30px 30px rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
 
@@ -1628,6 +1808,7 @@
                 <a href="#interaction-elements" class="nav-link">Interaction</a>
                 <a href="#feedback-states" class="nav-link">Feedback</a>
                 <a href="#visual" class="nav-link">Visual</a>
+                <a href="#animation" class="nav-link">Motion</a>
                 <a href="#process" class="nav-link">Process</a>
             </div>
             <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode">
@@ -1733,7 +1914,7 @@
         </div>
     </section>
 
-    <section id="layout-patterns" class="container">
+    <section id="layout-patterns" class="container" style="margin-top: 100px;">
         <div class="section-header">
             <span class="section-tag">Part 2</span>
             <h2>레이아웃 패턴<br><span class="korean-title" style="font-weight:300; font-size:1.5rem;">Layout Patterns</span>
@@ -2056,6 +2237,17 @@
                     </div>
                 </div>
             </div>
+            <!-- 7. Isometric Design -->
+            <div class="card">
+                <h3>Isometric Design <small>아이소메트릭</small></h3>
+                <p>2.5D 입체감을 주는 투시법입니다. 평면적인 화면에 공간감과 재미를 더합니다.</p>
+                <div class="visual-demo-box">
+                    <div
+                        style="perspective: 600px; display: flex; align-items: center; justify-content: center; height: 100%;">
+                        <div class="isometric-box"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -2142,6 +2334,60 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="animation" class="container" style="margin-top: 100px;">
+        <div class="section-header">
+            <span class="section-tag">Part 7</span>
+            <h2>"생동감" 있는 애니메이션<br><span class="korean-title" style="font-weight:300; font-size:1.5rem;">Advanced
+                    Motion</span></h2>
+            <p style="margin-top: 10px; color: var(--color-text-secondary);">사용자의 시선을 사로잡는 고급 인터랙션 효과</p>
+        </div>
+
+        <div class="motion-grid">
+            <!-- 3D Card -->
+            <div class="card tilt-card-wrap">
+                <h3>3D Tilt Effect <small>3D 틸트</small></h3>
+                <p>마우스 움직임에 따라 카드가 기울어지는 효과입니다.</p>
+                <div class="visual-demo-box" style="border:none; background:transparent; perspective: 1000px;">
+                    <div class="tilt-card" id="tiltCard">
+                        <span>HOVER ME</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gradient Border -->
+            <div class="card">
+                <h3>Gradient Border <small>회전하는 테두리</small></h3>
+                <p>테두리를 따라 그라데이션이 회전하며 강조 효과를 줍니다.</p>
+                <div class="visual-demo-box" style="border:none; background:transparent;">
+                    <div class="gradient-border-card">
+                        <span style="font-weight:bold;">Glowing Border</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Neon Pulse -->
+            <div class="card">
+                <h3>Neon Pulse <small>네온 펄스</small></h3>
+                <p>심장 박동처럼 빛나는 네온 효과로 상태를 알립니다.</p>
+                <div class="visual-demo-box" style="padding:0; overflow:hidden;">
+                    <div class="loader-container">
+                        <div class="neon-pulse"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Magnetic Button -->
+            <div class="card">
+                <h3>Magnetic Button <small>마그네틱 버튼</small></h3>
+                <p>마우스를 따라다니는 자석 같은 버튼입니다.</p>
+                <div class="visual-demo-box"
+                    style="border:none; background:transparent; display:flex; justify-content:center;">
+                    <button class="magnetic-btn" id="magneticBtn">Catch Me</button>
                 </div>
             </div>
         </div>
@@ -2304,6 +2550,45 @@
             }
         };
 
+        // 3D Tilt Logic
+        const tiltCard = document.getElementById('tiltCard');
+        if (tiltCard) {
+            tiltCard.addEventListener('mousemove', (e) => {
+                const rect = tiltCard.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -10; // Max rotation deg
+                const rotateY = ((x - centerX) / centerX) * 10;
+
+                tiltCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+                tiltCard.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
+                tiltCard.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
+            });
+
+            tiltCard.addEventListener('mouseleave', () => {
+                tiltCard.style.transform = `rotateX(0) rotateY(0) scale(1)`;
+            });
+        }
+
+        // Magnetic Button Logic
+        const magBtn = document.getElementById('magneticBtn');
+        if (magBtn) {
+            magBtn.addEventListener('mousemove', (e) => {
+                const rect = magBtn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+
+                magBtn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            });
+
+            magBtn.addEventListener('mouseleave', () => {
+                magBtn.style.transform = 'translate(0, 0)';
+            });
+        }
     </script>
 </body>
 
