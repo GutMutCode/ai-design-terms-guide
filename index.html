@@ -1120,7 +1120,7 @@
             border: 1px solid var(--color-card-border);
             border-radius: var(--radius-sm);
             padding: 15px;
-            height: 120px;
+            height: 160px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -1128,6 +1128,169 @@
             position: relative;
             overflow: hidden;
             width: 100%;
+        }
+
+        /* 
+         * BEFORE/AFTER COMPARISON PATTERN
+         * Shows the benefit of each design concept
+         */
+        .before-after-demo {
+            display: flex;
+            gap: 8px;
+            width: 100%;
+            height: 100%;
+            align-items: stretch;
+        }
+
+        .ba-side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .ba-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 5px 10px;
+            text-align: center;
+        }
+
+        .ba-before {
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .ba-before .ba-label {
+            background: rgba(239, 68, 68, 0.15);
+            color: #dc2626;
+        }
+
+        .ba-after {
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .ba-after .ba-label {
+            background: rgba(16, 185, 129, 0.15);
+            color: #059669;
+        }
+
+        [data-theme="dark"] .ba-before {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        [data-theme="dark"] .ba-before .ba-label {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+
+        [data-theme="dark"] .ba-after {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        [data-theme="dark"] .ba-after .ba-label {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+        }
+
+        .ba-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 6px;
+            position: relative;
+        }
+
+        .ba-arrow {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 28px;
+            height: 28px;
+            background: var(--color-card-bg);
+            border: 1px solid var(--color-card-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+            z-index: 5;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Mini UI elements for demos */
+        .ba-mini-header {
+            width: 100%;
+            height: 10px;
+            background: var(--color-primary);
+            border-radius: 2px 2px 0 0;
+        }
+
+        .ba-mini-content {
+            flex: 1;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            padding: 4px;
+        }
+
+        [data-theme="dark"] .ba-mini-content {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .ba-mini-line {
+            height: 4px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 2px;
+        }
+
+        [data-theme="dark"] .ba-mini-line {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .ba-mini-line:nth-child(odd) {
+            width: 80%;
+        }
+
+        .ba-mini-line:nth-child(even) {
+            width: 60%;
+        }
+
+        .ba-icon {
+            font-size: 1.6rem;
+            margin-bottom: 4px;
+        }
+
+        .ba-text {
+            font-size: 0.7rem;
+            color: var(--color-text-secondary);
+            text-align: center;
+            line-height: 1.3;
+            margin-top: 4px;
+        }
+
+        @media (max-width: 400px) {
+            .before-after-demo {
+                flex-direction: column;
+                gap: 6px;
+            }
+            
+            .ba-arrow {
+                transform: translate(-50%, -50%) rotate(90deg);
+            }
         }
 
         /* Inclusive Design */
@@ -1656,7 +1819,7 @@
          */
         .motion-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 450px), 1fr));
             gap: 30px;
         }
 
@@ -2099,15 +2262,33 @@
         </div>
 
         <div
-            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 40px;">
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 450px), 1fr)); gap: 20px; margin-top: 40px;">
             <div class="card" data-term="GNB">
                 <div class="card-icon">🧭</div>
                 <h3>GNB <small>Global Navigation Bar</small></h3>
                 <p>사이트 최상단에 항상 고정된 메뉴 바입니다. 모든 페이지에서 공통적으로 보입니다.</p>
-                <div class="visual-demo-box">
-                    <div style="width:100%; height:100%; display:flex; flex-direction:column;">
-                        <div style="height:20px; background:var(--color-primary); width:100%;"></div>
-                        <div style="flex:1; background:rgba(0,0,0,0.05); width:100%;"></div>
+                <div class="visual-demo-box" style="padding:8px;">
+                    <div class="before-after-demo">
+                        <div class="ba-side ba-before">
+                            <div class="ba-label">Before</div>
+                            <div class="ba-content">
+                                <div style="width:100%; height:100%; display:flex; flex-direction:column;">
+                                    <div style="flex:1; background:rgba(0,0,0,0.05); border-radius:2px;"></div>
+                                </div>
+                                <span class="ba-text">메뉴 없음</span>
+                            </div>
+                        </div>
+                        <div class="ba-arrow">→</div>
+                        <div class="ba-side ba-after">
+                            <div class="ba-label">After</div>
+                            <div class="ba-content">
+                                <div style="width:100%; height:100%; display:flex; flex-direction:column;">
+                                    <div style="height:12px; background:var(--color-primary); border-radius:2px 2px 0 0;"></div>
+                                    <div style="flex:1; background:rgba(0,0,0,0.05); border-radius:0 0 2px 2px;"></div>
+                                </div>
+                                <span class="ba-text">어디서든 이동 가능</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2137,15 +2318,28 @@
                 <div class="card-icon">🦸</div>
                 <h3>Hero Section <small>히어로 섹션</small></h3>
                 <p>웹페이지 접속 시 가장 먼저 보이는 상단 영역입니다. 사용자의 시선을 사로잡는 역할을 합니다.</p>
-                <div class="visual-demo-box">
-                    <div
-                        style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.1)); text-align:center;">
-                        <div>
-                            <div
-                                style="width:80px; height:8px; background:var(--color-primary); margin:0 auto 5px; border-radius:4px;">
+                <div class="visual-demo-box" style="padding:8px;">
+                    <div class="before-after-demo">
+                        <div class="ba-side ba-before">
+                            <div class="ba-label">Before</div>
+                            <div class="ba-content">
+                                <div style="width:100%; height:100%; display:flex; align-items:flex-start; padding:4px;">
+                                    <div style="width:40px; height:4px; background:rgba(0,0,0,0.2); border-radius:2px;"></div>
+                                </div>
+                                <span class="ba-text">밋밋한 시작</span>
                             </div>
-                            <div
-                                style="width:120px; height:4px; background:var(--color-text-secondary); margin:0 auto; border-radius:2px; opacity:0.5;">
+                        </div>
+                        <div class="ba-arrow">→</div>
+                        <div class="ba-side ba-after">
+                            <div class="ba-label">After</div>
+                            <div class="ba-content">
+                                <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, rgba(59,130,246,0.15), rgba(139,92,246,0.15)); border-radius:4px;">
+                                    <div style="text-align:center;">
+                                        <div style="width:35px; height:5px; background:var(--color-primary); margin:0 auto 3px; border-radius:2px;"></div>
+                                        <div style="width:50px; height:3px; background:var(--color-text-secondary); margin:0 auto; border-radius:1px; opacity:0.5;"></div>
+                                    </div>
+                                </div>
+                                <span class="ba-text">시선 집중!</span>
                             </div>
                         </div>
                     </div>
@@ -2156,8 +2350,24 @@
                 <div class="card-icon">🍞</div>
                 <h3>Breadcrumbs <small>브레드크럼</small></h3>
                 <p>"홈 > 카테고리 > 상세페이지"처럼 현재 위치를 보여주는 경로 표시입니다.</p>
-                <div class="visual-demo-box">
-                    <div class="breadcrumbs-demo" style="font-size:0.7rem;">Home > Depth 1 > Depth 2</div>
+                <div class="visual-demo-box" style="padding:8px;">
+                    <div class="before-after-demo">
+                        <div class="ba-side ba-before">
+                            <div class="ba-label">Before</div>
+                            <div class="ba-content">
+                                <span class="ba-icon">😵</span>
+                                <span class="ba-text">여기가 어디지?</span>
+                            </div>
+                        </div>
+                        <div class="ba-arrow">→</div>
+                        <div class="ba-side ba-after">
+                            <div class="ba-label">After</div>
+                            <div class="ba-content">
+                                <div style="font-size:0.5rem; color:var(--color-text-secondary); background:rgba(0,0,0,0.05); padding:3px 6px; border-radius:8px;">Home > Shop > Item</div>
+                                <span class="ba-text">현재 위치 명확!</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -2165,12 +2375,30 @@
                 <div class="card-icon">🦶</div>
                 <h3>Footer <small>푸터</small></h3>
                 <p>사이트 맨 아래 영역입니다. 사업자 정보, 약관, SNS 링크 등이 위치합니다.</p>
-                <div class="visual-demo-box">
-                    <div
-                        style="width:100%; height:100%; display:flex; flex-direction:column; justify-content:flex-end;">
-                        <div
-                            style="height:30px; background:rgba(0,0,0,0.1); width:100%; display:flex; align-items:center; justify-content:center; font-size:0.6rem; color:var(--color-text-secondary);">
-                            Copyright © ...</div>
+                <div class="visual-demo-box" style="padding:8px;">
+                    <div class="before-after-demo">
+                        <div class="ba-side ba-before">
+                            <div class="ba-label">Before</div>
+                            <div class="ba-content">
+                                <div style="width:100%; height:100%; display:flex; flex-direction:column; justify-content:flex-end;">
+                                    <div style="height:100%; background:rgba(0,0,0,0.03); border-radius:2px;"></div>
+                                </div>
+                                <span class="ba-text">정보 없이 끝</span>
+                            </div>
+                        </div>
+                        <div class="ba-arrow">→</div>
+                        <div class="ba-side ba-after">
+                            <div class="ba-label">After</div>
+                            <div class="ba-content">
+                                <div style="width:100%; height:100%; display:flex; flex-direction:column; justify-content:flex-end;">
+                                    <div style="flex:1; background:rgba(0,0,0,0.03); border-radius:2px 2px 0 0;"></div>
+                                    <div style="height:16px; background:var(--color-text); opacity:0.1; display:flex; align-items:center; justify-content:center; border-radius:0 0 2px 2px;">
+                                        <span style="font-size:0.4rem; color:var(--color-text);">© Info</span>
+                                    </div>
+                                </div>
+                                <span class="ba-text">연락처/약관 정리</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2190,13 +2418,31 @@
                 <div class="card-icon">🍱</div>
                 <h3>Bento Grid <small>벤토 그리드</small></h3>
                 <p>도시락 통(Bento box)처럼 직사각형 칸들을 나누어 정보를 배치하는 최신 레이아웃 트렌드입니다. 지금 이 섹션 자체가 벤토 그리드입니다!</p>
-                <div class="visual-demo-box"
-                    style="margin-top:20px; height:150px; background:transparent; border:none;">
-                    <div
-                        style="display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:10px; width:100%; height:100%;">
-                        <div style="background:rgba(59,130,246,0.2); border-radius:8px; grid-row:span 2;"></div>
-                        <div style="background:rgba(139,92,246,0.2); border-radius:8px;"></div>
-                        <div style="background:rgba(16,185,129,0.2); border-radius:8px;"></div>
+                <div class="visual-demo-box" style="margin-top:20px; height:150px; padding:8px;">
+                    <div class="before-after-demo">
+                        <div class="ba-side ba-before">
+                            <div class="ba-label">Before</div>
+                            <div class="ba-content" style="padding:8px;">
+                                <div style="display:flex; flex-direction:column; gap:4px; width:100%; height:100%;">
+                                    <div style="background:rgba(0,0,0,0.1); border-radius:4px; height:25%;"></div>
+                                    <div style="background:rgba(0,0,0,0.1); border-radius:4px; height:25%;"></div>
+                                    <div style="background:rgba(0,0,0,0.1); border-radius:4px; height:25%;"></div>
+                                </div>
+                                <span class="ba-text">단조로운 리스트</span>
+                            </div>
+                        </div>
+                        <div class="ba-arrow">→</div>
+                        <div class="ba-side ba-after">
+                            <div class="ba-label">After</div>
+                            <div class="ba-content" style="padding:8px;">
+                                <div style="display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:4px; width:100%; height:100%;">
+                                    <div style="background:rgba(59,130,246,0.3); border-radius:4px; grid-row:span 2;"></div>
+                                    <div style="background:rgba(139,92,246,0.3); border-radius:4px;"></div>
+                                    <div style="background:rgba(16,185,129,0.3); border-radius:4px;"></div>
+                                </div>
+                                <span class="ba-text">시각적 계층 구조</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2268,15 +2514,31 @@
                     Elements</span></h2>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 450px), 1fr)); gap: 40px;">
 
             <!-- 1. CTA Button -->
             <div class="card" data-term="CTA Button">
                 <div class="card-icon">👆</div>
                 <h3>CTA Button <small>행동 유도 버튼</small></h3>
                 <p>사용자에게 명확한 행동(구매, 가입 등)을 요청하는 주요 버튼입니다.</p>
-                <div class="visual-demo-box" style="border:none; background:transparent;">
-                    <button class="cta-button">Get Started</button>
+                <div class="visual-demo-box" style="padding:8px;">
+                    <div class="before-after-demo">
+                        <div class="ba-side ba-before">
+                            <div class="ba-label">Before</div>
+                            <div class="ba-content">
+                                <span style="font-size:0.65rem; color:var(--color-text-secondary); text-decoration:underline;">click here</span>
+                                <span class="ba-text">눈에 안 띄는 링크</span>
+                            </div>
+                        </div>
+                        <div class="ba-arrow">→</div>
+                        <div class="ba-side ba-after">
+                            <div class="ba-label">After</div>
+                            <div class="ba-content">
+                                <button style="padding:6px 12px; background:var(--color-primary); color:white; border:none; border-radius:6px; font-size:0.65rem; font-weight:bold; box-shadow:0 2px 8px rgba(59,130,246,0.3);">Get Started</button>
+                                <span class="ba-text">명확한 행동 유도</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -2352,18 +2614,35 @@
             <p style="margin-top: 10px; color: var(--color-text-secondary);">시스템이 사용자에게 보여주는 반응들</p>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 450px), 1fr)); gap: 30px;">
 
             <div class="card" data-term="Skeleton Screen">
                 <div class="card-icon">💀</div>
                 <h3>Skeleton Screen <small>스켈레톤</small></h3>
                 <p>로딩 중에 보여주는 뼈대 화면입니다. 체감 대기 시간을 줄여줍니다.</p>
-                <div class="visual-demo-box" style="border:none; background:transparent;">
-                    <div class="skeleton-card">
-                        <div class="skeleton-shimmer" style="width: 60%; height: 20px; margin-bottom: 15px;"></div>
-                        <div class="skeleton-shimmer" style="width: 100%; height: 12px; margin-bottom: 8px;"></div>
-                        <div class="skeleton-shimmer" style="width: 90%; height: 12px; margin-bottom: 8px;"></div>
-                        <div class="skeleton-shimmer" style="width: 80%; height: 12px;"></div>
+                <div class="visual-demo-box" style="padding:8px;">
+                    <div class="before-after-demo">
+                        <div class="ba-side ba-before">
+                            <div class="ba-label">Before</div>
+                            <div class="ba-content">
+                                <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.03); border-radius:4px;">
+                                    <span style="font-size:1.2rem;">⏳</span>
+                                </div>
+                                <span class="ba-text">그냥 빈 화면</span>
+                            </div>
+                        </div>
+                        <div class="ba-arrow">→</div>
+                        <div class="ba-side ba-after">
+                            <div class="ba-label">After</div>
+                            <div class="ba-content" style="padding:4px;">
+                                <div style="width:100%; display:flex; flex-direction:column; gap:3px;">
+                                    <div class="skeleton-shimmer" style="width:50%; height:8px;"></div>
+                                    <div class="skeleton-shimmer" style="width:100%; height:5px;"></div>
+                                    <div class="skeleton-shimmer" style="width:80%; height:5px;"></div>
+                                </div>
+                                <span class="ba-text">뼈대로 기대감 유지</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2383,10 +2662,26 @@
                 <div class="card-icon">🔴</div>
                 <h3>Badge <small>배지</small></h3>
                 <p>아이콘 위에 붙는 작은 점이나 숫자입니다. 알림이 있음을 알려줍니다.</p>
-                <div class="visual-demo-box" style="border:none; background:transparent;">
-                    <div class="badge-container">
-                        <div class="badge-icon">🔔</div>
-                        <div class="badge-dot">3</div>
+                <div class="visual-demo-box" style="padding:8px;">
+                    <div class="before-after-demo">
+                        <div class="ba-side ba-before">
+                            <div class="ba-label">Before</div>
+                            <div class="ba-content">
+                                <span style="font-size:1.5rem; opacity:0.5;">🔔</span>
+                                <span class="ba-text">알림 여부 불명</span>
+                            </div>
+                        </div>
+                        <div class="ba-arrow">→</div>
+                        <div class="ba-side ba-after">
+                            <div class="ba-label">After</div>
+                            <div class="ba-content">
+                                <div style="position:relative; display:inline-block;">
+                                    <span style="font-size:1.5rem;">🔔</span>
+                                    <span style="position:absolute; top:-4px; right:-8px; background:#ef4444; color:white; font-size:0.5rem; font-weight:bold; padding:1px 4px; border-radius:8px;">3</span>
+                                </div>
+                                <span class="ba-text">새 알림 3개!</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2395,10 +2690,30 @@
                 <div class="card-icon">📭</div>
                 <h3>Empty State <small>빈 상태</small></h3>
                 <p>데이터가 없을 때 보여주는 화면입니다. 다음 행동을 안내해야 합니다.</p>
-                <div class="empty-state-box" style="margin-top: 15px;">
-                    <div class="empty-icon">📂</div>
-                    <p style="font-size: 0.9rem; margin-bottom: 10px;">파일이 없습니다.</p>
-                    <button class="cta-button">새로 만들기</button>
+                <div class="visual-demo-box" style="padding:8px; height:140px;">
+                    <div class="before-after-demo">
+                        <div class="ba-side ba-before">
+                            <div class="ba-label">Before</div>
+                            <div class="ba-content">
+                                <div style="width:100%; height:100%; background:rgba(0,0,0,0.03); border-radius:4px; display:flex; align-items:center; justify-content:center;">
+                                    <span style="font-size:0.6rem; color:var(--color-text-secondary);">(빈 화면)</span>
+                                </div>
+                                <span class="ba-text">뭘 해야 할지 모름</span>
+                            </div>
+                        </div>
+                        <div class="ba-arrow">→</div>
+                        <div class="ba-side ba-after">
+                            <div class="ba-label">After</div>
+                            <div class="ba-content">
+                                <div style="text-align:center;">
+                                    <span style="font-size:1rem; opacity:0.4;">📂</span>
+                                    <div style="font-size:0.5rem; color:var(--color-text-secondary); margin:2px 0;">파일 없음</div>
+                                    <span style="font-size:0.45rem; background:var(--color-primary); color:white; padding:2px 6px; border-radius:4px;">+ 새로 만들기</span>
+                                </div>
+                                <span class="ba-text">다음 행동 안내</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -2422,7 +2737,7 @@
             <p style="margin-top: 10px; color: var(--color-text-secondary);">현대적인 시각 스타일링 기법들</p>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 450px), 1fr)); gap: 30px;">
             <!-- 1. Glassmorphism -->
             <div class="card" data-term="Glassmorphism">
                 <h3>Glassmorphism <small>글래스모피즘</small></h3>
@@ -2438,8 +2753,24 @@
             <div class="card" data-term="Kinetic Typography">
                 <h3>Kinetic Typography <small>키네틱 타이포그래피</small></h3>
                 <p>텍스트가 움직이거나 애니메이션되는 효과입니다. 시선을 사로잡는 강력한 수단입니다.</p>
-                <div class="visual-demo-box">
-                    <span class="kinetic-text">MOVING</span>
+                <div class="visual-demo-box" style="padding:8px;">
+                    <div class="before-after-demo">
+                        <div class="ba-side ba-before">
+                            <div class="ba-label">Before</div>
+                            <div class="ba-content">
+                                <span style="font-size:0.8rem; font-weight:bold; color:var(--color-text-secondary);">TEXT</span>
+                                <span class="ba-text">정적인 텍스트</span>
+                            </div>
+                        </div>
+                        <div class="ba-arrow">→</div>
+                        <div class="ba-side ba-after">
+                            <div class="ba-label">After</div>
+                            <div class="ba-content">
+                                <span class="kinetic-text" style="font-size:0.8rem;">MOVE</span>
+                                <span class="ba-text">살아있는 텍스트</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -2522,7 +2853,7 @@
             <p style="margin-top: 10px; color: var(--color-text-secondary);">디자인 작업 단계와 방법론</p>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 450px), 1fr)); gap: 20px;">
             <div class="card" data-term="Wireframe">
                 <div class="card-icon">1️⃣</div>
                 <h3>Wireframe <small>와이어프레임</small></h3>
@@ -2565,13 +2896,29 @@
                 <div class="card-icon">🎨</div>
                 <h3>Design Token <small>디자인 토큰</small></h3>
                 <p>색상, 간격 등 디자인 값을 변수로 관리하여 일관성을 유지합니다.</p>
-                <div class="visual-demo-box">
-                    <div class="token-grid">
-                        <div class="token-item">
-                            <div class="token-swatch" style="background:var(--color-primary)"></div><span>P</span>
+                <div class="visual-demo-box" style="padding:8px;">
+                    <div class="before-after-demo">
+                        <div class="ba-side ba-before">
+                            <div class="ba-label">Before</div>
+                            <div class="ba-content">
+                                <div style="display:flex; gap:3px;">
+                                    <div style="width:12px; height:12px; border-radius:50%; background:#3b82f6;"></div>
+                                    <div style="width:12px; height:12px; border-radius:50%; background:#2563eb;"></div>
+                                    <div style="width:12px; height:12px; border-radius:50%; background:#60a5fa;"></div>
+                                </div>
+                                <span class="ba-text">중구난방 색상</span>
+                            </div>
                         </div>
-                        <div class="token-item">
-                            <div class="token-swatch" style="background:var(--color-accent)"></div><span>A</span>
+                        <div class="ba-arrow">→</div>
+                        <div class="ba-side ba-after">
+                            <div class="ba-label">After</div>
+                            <div class="ba-content">
+                                <div style="display:flex; gap:3px; align-items:center;">
+                                    <div style="width:12px; height:12px; border-radius:50%; background:var(--color-primary);"></div>
+                                    <span style="font-size:0.45rem; color:var(--color-text-secondary);">--primary</span>
+                                </div>
+                                <span class="ba-text">체계적 변수 관리</span>
+                            </div>
                         </div>
                     </div>
                 </div>
