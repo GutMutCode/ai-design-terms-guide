@@ -1830,6 +1830,234 @@
             transform: rotateX(60deg) rotateY(0deg) rotateZ(45deg) translateZ(10px);
             box-shadow: 30px 30px 30px rgba(0, 0, 0, 0.3);
         }
+
+        /* 
+         * NEW MOTION DESIGN TERMS 
+         */
+        /* Easing Demo */
+        .easing-demo {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            padding: 10px;
+        }
+
+        .easing-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .easing-label {
+            font-size: 0.65rem;
+            width: 60px;
+            color: var(--color-text-secondary);
+            text-align: right;
+        }
+
+        .easing-track {
+            flex: 1;
+            height: 8px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        [data-theme="dark"] .easing-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .easing-ball {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 14px;
+            height: 14px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            animation: easingMove 2s infinite;
+        }
+
+        .easing-ball.linear { animation-timing-function: linear; }
+        .easing-ball.ease-in { animation-timing-function: ease-in; }
+        .easing-ball.ease-out { animation-timing-function: ease-out; }
+        .easing-ball.ease-in-out { animation-timing-function: ease-in-out; }
+
+        @keyframes easingMove {
+            0%, 100% { left: 0; }
+            50% { left: calc(100% - 14px); }
+        }
+
+        /* Spring Animation Demo */
+        .spring-demo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .spring-box {
+            width: 60px;
+            height: 60px;
+            background: var(--color-accent);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .spring-box:hover {
+            transform: scale(1.2);
+        }
+
+        .spring-box:active {
+            transform: scale(0.85);
+            transition: transform 0.1s ease;
+        }
+
+        /* Stagger Animation Demo */
+        .stagger-demo {
+            display: flex;
+            gap: 8px;
+            align-items: flex-end;
+            height: 80px;
+        }
+
+        .stagger-bar {
+            width: 20px;
+            background: var(--color-primary);
+            border-radius: 4px 4px 0 0;
+            animation: staggerGrow 1.5s ease-in-out infinite;
+        }
+
+        .stagger-bar:nth-child(1) { animation-delay: 0s; height: 30px; }
+        .stagger-bar:nth-child(2) { animation-delay: 0.1s; height: 50px; }
+        .stagger-bar:nth-child(3) { animation-delay: 0.2s; height: 40px; }
+        .stagger-bar:nth-child(4) { animation-delay: 0.3s; height: 60px; }
+        .stagger-bar:nth-child(5) { animation-delay: 0.4s; height: 35px; }
+
+        @keyframes staggerGrow {
+            0%, 100% { 
+                transform: scaleY(1);
+                opacity: 1;
+            }
+            50% { 
+                transform: scaleY(0.3);
+                opacity: 0.5;
+            }
+        }
+
+        /* Parallax Demo */
+        .parallax-demo {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            border-radius: 8px;
+            background: linear-gradient(180deg, #87CEEB 0%, #E0F6FF 100%);
+        }
+
+        .parallax-layer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            transition: transform 0.1s ease-out;
+        }
+
+        .parallax-bg {
+            height: 40px;
+            background: linear-gradient(180deg, transparent 0%, #228B22 100%);
+            bottom: 0;
+        }
+
+        .parallax-mid {
+            height: 25px;
+            background: #32CD32;
+            bottom: 15px;
+            border-radius: 100% 100% 0 0;
+            transform: scaleX(1.2);
+        }
+
+        .parallax-fg {
+            height: 20px;
+            background: #228B22;
+            bottom: 0;
+        }
+
+        .parallax-sun {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            width: 25px;
+            height: 25px;
+            background: #FFD700;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #FFD700;
+        }
+
+        .parallax-cloud {
+            position: absolute;
+            top: 20px;
+            left: 15px;
+            width: 35px;
+            height: 12px;
+            background: white;
+            border-radius: 10px;
+            opacity: 0.9;
+        }
+
+        .parallax-cloud::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 8px;
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        /* Morphing Demo */
+        .morph-demo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .morph-shape {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+            animation: morphing 4s ease-in-out infinite;
+        }
+
+        @keyframes morphing {
+            0%, 100% {
+                border-radius: 50%;
+                transform: rotate(0deg) scale(1);
+            }
+            25% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+                transform: rotate(90deg) scale(1.1);
+            }
+            50% {
+                border-radius: 10%;
+                transform: rotate(180deg) scale(1);
+            }
+            75% {
+                border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+                transform: rotate(270deg) scale(1.1);
+            }
+        }
     </style>
 </head>
 
@@ -2425,6 +2653,85 @@
                     <button class="magnetic-btn" id="magneticBtn">Catch Me</button>
                 </div>
             </div>
+
+            <!-- Easing -->
+            <div class="card" data-term="Easing">
+                <h3>Easing <small>이징</small></h3>
+                <p>애니메이션의 속도 변화를 조절하는 함수입니다. 자연스러운 움직임의 핵심입니다.</p>
+                <div class="visual-demo-box" style="border:none; background:transparent;">
+                    <div class="easing-demo">
+                        <div class="easing-row">
+                            <span class="easing-label">linear</span>
+                            <div class="easing-track"><div class="easing-ball linear"></div></div>
+                        </div>
+                        <div class="easing-row">
+                            <span class="easing-label">ease-in</span>
+                            <div class="easing-track"><div class="easing-ball ease-in"></div></div>
+                        </div>
+                        <div class="easing-row">
+                            <span class="easing-label">ease-out</span>
+                            <div class="easing-track"><div class="easing-ball ease-out"></div></div>
+                        </div>
+                        <div class="easing-row">
+                            <span class="easing-label">ease-in-out</span>
+                            <div class="easing-track"><div class="easing-ball ease-in-out"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spring Animation -->
+            <div class="card" data-term="Spring Animation">
+                <h3>Spring Animation <small>스프링 애니메이션</small></h3>
+                <p>용수철처럼 탄성있게 튀어오르는 애니메이션입니다. 클릭해보세요!</p>
+                <div class="visual-demo-box" style="border:none; background:transparent;">
+                    <div class="spring-demo">
+                        <div class="spring-box" id="springBox">Boing!</div>
+                        <span style="font-size:0.7rem; color:var(--color-text-secondary);">hover & click</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stagger Animation -->
+            <div class="card" data-term="Stagger Animation">
+                <h3>Stagger Animation <small>스태거 애니메이션</small></h3>
+                <p>여러 요소가 시간차를 두고 순차적으로 애니메이션되는 효과입니다.</p>
+                <div class="visual-demo-box" style="border:none; background:transparent;">
+                    <div class="stagger-demo">
+                        <div class="stagger-bar"></div>
+                        <div class="stagger-bar"></div>
+                        <div class="stagger-bar"></div>
+                        <div class="stagger-bar"></div>
+                        <div class="stagger-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Parallax -->
+            <div class="card" data-term="Parallax">
+                <h3>Parallax <small>패럴랙스</small></h3>
+                <p>배경과 전경이 다른 속도로 움직여 깊이감을 주는 효과입니다. 마우스를 움직여보세요.</p>
+                <div class="visual-demo-box" style="padding:0; overflow:hidden;" id="parallaxContainer">
+                    <div class="parallax-demo">
+                        <div class="parallax-sun"></div>
+                        <div class="parallax-cloud" id="parallaxCloud"></div>
+                        <div class="parallax-layer parallax-bg" id="parallaxBg"></div>
+                        <div class="parallax-layer parallax-mid" id="parallaxMid"></div>
+                        <div class="parallax-layer parallax-fg" id="parallaxFg"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Morphing -->
+            <div class="card" data-term="Morphing">
+                <h3>Morphing <small>모핑</small></h3>
+                <p>한 형태에서 다른 형태로 부드럽게 변형되는 애니메이션입니다.</p>
+                <div class="visual-demo-box" style="border:none; background:transparent;">
+                    <div class="morph-demo">
+                        <div class="morph-shape"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -2665,7 +2972,7 @@
 
         document.querySelectorAll('.card[data-term]').forEach(card => {
             card.addEventListener('click', async (e) => {
-                if (e.target.closest('button, .accordion-header, .chip, .heart-btn, .cta-button, .proto-btn, .prog-toggle-btn')) {
+                if (e.target.closest('button, .accordion-header, .chip, .heart-btn, .cta-button, .proto-btn, .prog-toggle-btn, .spring-box')) {
                     return;
                 }
 
@@ -2678,6 +2985,33 @@
                 }
             });
         });
+
+        // Parallax Demo Logic
+        const parallaxContainer = document.getElementById('parallaxContainer');
+        if (parallaxContainer) {
+            const cloud = document.getElementById('parallaxCloud');
+            const bg = document.getElementById('parallaxBg');
+            const mid = document.getElementById('parallaxMid');
+            const fg = document.getElementById('parallaxFg');
+
+            parallaxContainer.addEventListener('mousemove', (e) => {
+                const rect = parallaxContainer.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+                if (cloud) cloud.style.transform = `translate(${x * 30}px, ${y * 10}px)`;
+                if (bg) bg.style.transform = `translateX(${x * 5}px)`;
+                if (mid) mid.style.transform = `scaleX(1.2) translateX(${x * 15}px)`;
+                if (fg) fg.style.transform = `translateX(${x * 25}px)`;
+            });
+
+            parallaxContainer.addEventListener('mouseleave', () => {
+                if (cloud) cloud.style.transform = 'translate(0, 0)';
+                if (bg) bg.style.transform = 'translateX(0)';
+                if (mid) mid.style.transform = 'scaleX(1.2) translateX(0)';
+                if (fg) fg.style.transform = 'translateX(0)';
+            });
+        }
     </script>
 </body>
 
